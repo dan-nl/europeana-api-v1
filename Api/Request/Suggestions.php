@@ -47,17 +47,6 @@ class Suggestions extends RequestAbstract {
 
 
 	/**
-	 * @throws Exception
-	 * @return void
-	 */
-	protected function validate() {
-
-		if ( empty( $this->query ) ) { throw new Exception('no query provided'); }
-
-	}
-
-
-	/**
 	 * @return void
 	 */
 	public function reset() {

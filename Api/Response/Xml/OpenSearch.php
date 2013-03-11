@@ -6,16 +6,21 @@
  * @copyright © 2013 dan entous
  * @license GNU General Public Licence 3.0 http://www.gnu.org/licenses/gpl.html
  */
-namespace	Europeana\Api\Response;
+namespace Europeana\Api\Response\Xml;
+use Europeana\Api\Response\XmlAbstract;
 
 
-interface ResponseInterface {
+class OpenSearch extends XmlAbstract {
 
 
-	public function getRequestUrl();
-	public function reset();
-	public function __get( $property );
-	public function __construct( array $response );
+	/**
+	 * @return void
+	 */
+	public function reset() {
+
+		parent::reset();
+
+	}
 
 
 }

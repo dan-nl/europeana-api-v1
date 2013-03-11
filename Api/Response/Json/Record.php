@@ -7,14 +7,20 @@
  * @license GNU General Public Licence 3.0 http://www.gnu.org/licenses/gpl.html
  */
 namespace Europeana\Api\Response\Json;
-use Europeana\Api\Response\Json;
+use Europeana\Api\Response\JsonAbstract;
 
 
-class Record extends Json {
+class Record extends JsonAbstract {
 
 
 	/**
-	 * @var array
+	 * @var Europeana\Api\Response\Json\Api
+	 */
+	public $api_response;
+
+
+	/**
+	 * @var Europeana\Object
 	 * an object represents the EDM metadata record. The object has the following parts:
 	 */
 	public $object;
@@ -35,17 +41,6 @@ class Record extends Json {
 
 
 	/**
-	 * @var string $property_name
-	 */
-	protected function addObject( $property_name = null ) {
-
-		if ( empty( $property_name ) ) { throw new Exception('no property name provided'); }
-		$this->{$property_name} = new $this->_property_to_class[ $property_name ]( $this->_response_array[ $property_name ] );
-
-	}
-
-
-	/**
 	 * @return void
 	 */
 	public function reset() {
@@ -56,7 +51,8 @@ class Record extends Json {
 		$this->similarItems = array();
 		$this->statsDuration = 0;
 
-		$this->_property_to_class['object'] = 'Europeana\Object';
+		$this->_property_to_class['api_response'] = 'Europeana\Api\Response\Objects\ApiResponse';
+		$this->_property_to_class['object'] = 'Europeana\Api\Response\Objects\Object';
 
 	}
 

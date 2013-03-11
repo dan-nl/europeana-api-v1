@@ -6,16 +6,14 @@
  * @copyright © 2013 dan entous
  * @license GNU General Public Licence 3.0 http://www.gnu.org/licenses/gpl.html
  */
-namespace Europeana;
-use Exception,
-		ReflectionClass,
-		ReflectionProperty;
+namespace Europeana\Api\Response\Objects;
+use Europeana\Api\Response\ResponseObjectAbstract;
 
 
 /**
  * if the search has results, the hits take place in the "items" array. Each item is an object, and represents a summary of metadata record. The actual content is depending of the profile parameter. The mandatory field are:
  */
-class Item {
+class Item extends ResponseObjectAbstract {
 
 
 	/**
@@ -128,51 +126,19 @@ class Item {
 	public $year;
 
 
-	/**
-	 * @access protected
-	 */
-	protected $_reflection;
+	public function reset() {
 
-
-	/**
-	 * @access protected
-	 */
-	protected $_public_properties;
-
-
-	/**
-	 * @var array
-	 */
-	protected $_response_array;
-
-
-	/**
-	 * @return void
-	 */
-	protected function populate() {
-
-		if ( empty( $this->_response_array ) ) { return; }
-
-		foreach( $this->_public_properties as $property ) {
-
-			if ( array_key_exists( $property->name, $this->_response_array ) ) {
-
-					$this->{$property->name} = $this->_response_array[ $property->name ];
-
-			}
-
-		}
+		parent::reset();
 
 	}
 
 
-	public function __construct( $response_array ) {
+	public function __construct( array $properties ) {
 
-		$this->_response_array = $response_array;
-		$this->_reflection = new ReflectionClass( $this );
-		$this->_public_properties = $this->_reflection->getProperties( ReflectionProperty::IS_PUBLIC );
-		$this->populate();
+		$this->reset();
+		$this->populate( $properties );
 
 	}
-	
+
+
 }

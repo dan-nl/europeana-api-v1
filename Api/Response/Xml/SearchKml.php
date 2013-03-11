@@ -6,12 +6,13 @@
  * @copyright © 2013 dan entous
  * @license GNU General Public Licence 3.0 http://www.gnu.org/licenses/gpl.html
  */
-namespace Europeana\Api\Response;
+namespace Europeana\Api\Response\Xml;
+use Europeana\Api\Response\XmlAbstract;
 
 
-class Xml extends ResponseAbstract {
-	
-	
+class SearchKml extends XmlAbstract {
+
+
 	/**
 	 * @return void
 	 */

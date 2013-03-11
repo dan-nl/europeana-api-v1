@@ -17,6 +17,13 @@ class OpenSearch extends RequestAbstract {
 
 
 	/**
+	 * @var int
+	 * [default = 12] defines the number of search results, possible values: 12, 24, 48, 100
+	 */
+	public $count;
+
+
+	/**
 	 * @var string
 	 * [required] the term to find search for. Similar to query parameter in search.json.
 	 *
@@ -33,28 +40,10 @@ class OpenSearch extends RequestAbstract {
 
 
 	/**
-	 * @var int
-	 * [default = 12] defines the number of search results, possible values: 12, 24, 48, 100
-	 */
-	public $count;
-
-
-	/**
 	 * @var string
 	 * [default = relevance] Sort order of results, options are relevance, title, publication
 	 */
 	public $sort;
-
-
-	/**
-	 * @throws Exception
-	 * @return void
-	 */
-	protected function validate() {
-
-		if ( empty( $this->searchTerms ) ) { throw new Exception('no searchTerms provided'); }
-
-	}
 
 
 	/**

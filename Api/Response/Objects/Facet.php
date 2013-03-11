@@ -6,16 +6,14 @@
  * @copyright © 2013 dan entous
  * @license GNU General Public Licence 3.0 http://www.gnu.org/licenses/gpl.html
  */
-namespace Europeana;
-use Exception,
-		ReflectionClass,
-		ReflectionProperty;
+namespace Europeana\Api\Response\Objects;
+use Europeana\Api\Response\ResponseObjectAbstract;
 
 
 /**
  * is a list of facet object (available in case of facets and portal profile applications). Each facet object contains the following fields
  */
-class Facet {
+class Facet extends ResponseObjectAbstract {
 
 
 	/**
@@ -30,6 +28,22 @@ class Facet {
 	 * the name of the facet field. It should always one of Europeana's defined facet (which are COMPLETENESS, COUNTRY, DATA_PROVIDER, LANGUAGE, LOCATION, PROVIDER, RIGHTS, TYPE, UGC, and YEAR).
 	 */
 	public $name;
+
+
+	public function reset() {
+
+		parent::reset();
+		$this->_property_to_class['fields'] = 'Europeana\Api\Response\Objects\FacetField';
+
+	}
+
+
+	public function __construct( array $properties ) {
+
+		$this->reset();
+		$this->populate( $properties );
+
+	}
 
 
 }

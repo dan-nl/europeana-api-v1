@@ -7,10 +7,16 @@
  * @license GNU General Public Licence 3.0 http://www.gnu.org/licenses/gpl.html
  */
 namespace Europeana\Api\Response\Json;
-use Europeana\Api\Response\Json;
+use Europeana\Api\Response\JsonAbstract;
 
 
-class Search extends Json {
+class Search extends JsonAbstract {
+
+
+	/**
+	 * @var Europeana\Api\Response\Json\Api
+	 */
+	public $api_response;
 
 
 	/**
@@ -56,28 +62,13 @@ class Search extends Json {
 
 
 	/**
-	 * @var string $property_name
-	 */
-	protected function addObject( $property_name = null ) {
-
-		if ( empty( $property_name ) ) { throw new Exception('no property name provided'); }
-
-		foreach( $this->_response_array[ $property_name ] as $item ) {
-
-			$this->{$property_name}[] = new $this->_property_to_class[ $property_name ]( $item );
-
-		}
-
-	}
-
-
-	/**
 	 * @return void
 	 */
 	public function reset() {
 
 		parent::reset();
 
+		$this->api_response = array();
 		$this->breadCrumbs = array();
 		$this->facets = array();
 		$this->items = array();
@@ -85,10 +76,11 @@ class Search extends Json {
 		$this->spellcheck = array();
 		$this->totalResults = 0;
 
-		$this->_property_to_class['breadCrumbs'] = 'Europeana\Breadcrumb';
-		$this->_property_to_class['facets'] = 'Europeana\Facet';
-		$this->_property_to_class['items'] = 'Europeana\Item';
-		$this->_property_to_class['spellcheck'] = 'Europeana\Spellcheck';
+		$this->_property_to_class['api_response'] = 'Europeana\Api\Response\Objects\ApiResponse';
+		$this->_property_to_class['breadCrumbs'] = 'Europeana\Api\Response\Objects\Breadcrumb';
+		$this->_property_to_class['facets'] = 'Europeana\Api\Response\Objects\Facet';
+		$this->_property_to_class['items'] = 'Europeana\Api\Response\Objects\Item';
+		$this->_property_to_class['spellcheck'] = 'Europeana\Api\Response\Objects\Spellcheck';
 
 	}
 

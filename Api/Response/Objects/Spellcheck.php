@@ -6,15 +6,14 @@
  * @copyright © 2013 dan entous
  * @license GNU General Public Licence 3.0 http://www.gnu.org/licenses/gpl.html
  */
-namespace Europeana;
-use Exception,
-		ReflectionClass,
-		ReflectionProperty;
+namespace Europeana\Api\Response\Objects;
+use Europeana\Api\Response\ResponseObjectAbstract;
+
 
 /**
  * is object representing spellcheck suggestions (available in case of spellcheck and portal profile applications). The object contains the following fields:
  */
-class Spellcheck {
+class Spellcheck extends ResponseObjectAbstract {
 
 
 	/**
@@ -29,6 +28,21 @@ class Spellcheck {
 	 * a list of alternative terms available in the database. Each suggestion contains
 	 */
 	public $suggestions;
+
+
+	public function reset() {
+
+		parent::reset();
+
+	}
+
+
+	public function __construct( array $properties ) {
+
+		$this->reset();
+		$this->populate( $properties );
+
+	}
 
 
 }

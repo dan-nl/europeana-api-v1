@@ -18,16 +18,9 @@ class Record extends RequestAbstract {
 
 	/**
 	 * @var string
-	 * [required] the API key you get when you register (do not confuse with the other key, called Private key).
+	 * a name of callback function. If you set a funtion the JSON response will be wrapped by this function call.
 	 */
-	public $wskey;
-
-
-	/**
-	 * @var string
-	 * [required] the id of the record being requested
-	 */
-	public $recordID;
+	public $callback;
 
 
 	/**
@@ -39,26 +32,22 @@ class Record extends RequestAbstract {
 
 	/**
 	 * @var string
-	 * a name of callback function. If you set a funtion the JSON response will be wrapped by this function call.
+	 * [required] the id of the record being requested
 	 */
-	public $callback;
+	public $recordID;
+
+
+	/**
+	 * @var string
+	 * [required] the API key you get when you register (do not confuse with the other key, called Private key).
+	 */
+	public $wskey;
 
 
 	public function call() {
 
-		return( $this->_HttpRequest->get( $this->buildUrl( $this->recordID ) ) );
-
-	}
-
-
-	/**
-	 * @throws Exception
-	 * @return void
-	 */
-	protected function validate() {
-
-		if ( empty( $this->wskey ) ) { throw new Exception('no wskey provided'); }
-		if ( empty( $this->recordID ) ) { throw new Exception('no recordID provided'); }
+		//return( $this->_HttpRequest->get( $this->buildUrl( $this->recordID ) ) );
+		return parent::call( $this->recordID );
 
 	}
 
@@ -75,7 +64,7 @@ class Record extends RequestAbstract {
 		$this->recordID = null;
 		$this->wskey = null;
 
-		$this->_endpoint = 'http://preview.europeana.eu/api/v2/record/%s.json';
+		$this->_endpoint = 'http://preview.europeana.eu/api/v2/record%s.json';
 
 	}
 

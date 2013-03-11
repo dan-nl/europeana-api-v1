@@ -76,9 +76,11 @@ class Search extends RequestAbstract {
 	protected $_original_qf;
 
 
-	public function buildQf( array $array ) {
+	protected function buildQf( array $array ) {
 
 		$result = array();
+
+			if ( empty( $array ) || empty( $array['facets'] ) ) { return; }
 
 			for( $i = 0; $i < count( $array['facets'] ); $i += 1 ) {
 
@@ -92,29 +94,17 @@ class Search extends RequestAbstract {
 				}
 
 			}
-		
+
 		$this->_original_qf = $this->qf;
 		$this->qf = $result;
 
 	}
 
 
-	public function buildUrl() {
+	protected function buildUrl(  $sprintf = null  ) {
 
 		$this->buildQf( $this->qf );
 		return parent::buildUrl();
-
-	}
-
-
-	/**
-	 * @throws Exception
-	 * @return void
-	 */
-	protected function validate() {
-
-		if ( empty( $this->query ) ) { throw new Exception('no query provided'); }
-		if ( empty( $this->wskey ) ) { throw new Exception('no wskey provided'); }
 
 	}
 

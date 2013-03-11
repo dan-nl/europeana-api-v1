@@ -13,7 +13,6 @@ use	W3C\Http\HttpRequestInterface;
 interface RequestInterface {
 
 
-	public function buildUrl();
 	public function call();
 	public function reset();
 	public function __get( $property );

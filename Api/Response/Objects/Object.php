@@ -6,16 +6,14 @@
  * @copyright © 2013 dan entous
  * @license GNU General Public Licence 3.0 http://www.gnu.org/licenses/gpl.html
  */
-namespace Europeana;
-use Exception,
-		ReflectionClass,
-		ReflectionProperty;
+namespace Europeana\Api\Response\Objects;
+use Europeana\Api\Response\ResponseObjectAbstract;
 
 
 /**
  * an object represents the EDM metadata record. The object has the following parts:
  */
-class Object {
+class Object extends ResponseObjectAbstract {
 
 
 	/**
@@ -95,45 +93,9 @@ class Object {
 	public $type;
 
 
-	/**
-	 * @access protected
-	 */
-	protected $_reflection;
-
-
-	/**
-	 * @access protected
-	 */
-	protected $_public_properties;
-
-
-	/**
-	 * @var array
-	 */
-	protected $_response_array;
-
-
-	/**
-	 * @return void
-	 */
-	protected function populate() {
-
-		if ( empty( $this->_response_array ) ) { return; }
-
-		foreach( $this->_public_properties as $property ) {
-
-			if ( array_key_exists( $property->name, $this->_response_array ) ) {
-
-					$this->{$property->name} = $this->_response_array[ $property->name ];
-
-			}
-
-		}
-
-	}
-
-
 	public function reset() {
+
+		parent::reset();
 
 		$this->about = null;
 		$this->agents = array();
@@ -150,13 +112,13 @@ class Object {
 	}
 
 
-	public function __construct( array $response_array ) {
+	public function __construct( array $properties ) {
 
 		$this->reset();
-		$this->_response_array = $response_array;
-		$this->_reflection = new ReflectionClass( $this );
-		$this->_public_properties = $this->_reflection->getProperties( ReflectionProperty::IS_PUBLIC );
-		$this->populate();
+		$this->populate( $properties );
+
+		//$this->_property_to_class['object'] = 'Europeana\Api\Response\Objects\Agent';
+		//$this->_property_to_class['aggregations'] = 'Europeana\Api\Response\Objects\Aggregation';
 
 	}
 

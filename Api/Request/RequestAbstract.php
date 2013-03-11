@@ -41,6 +41,23 @@ abstract class RequestAbstract implements RequestInterface {
 	protected $_url;
 
 
+	protected function parseQuote( $property ) {
+
+		$result = null;
+
+			$pieces = explode( '"', $this->{$property->name} );
+
+			foreach( $pieces as $piece ) {
+
+				$result .= urlencode( $piece ) . '"';
+
+			}
+
+		return $result;
+
+	}
+
+
 	protected function parseSlash( $property ) {
 
 		$result = null;
@@ -64,11 +81,14 @@ abstract class RequestAbstract implements RequestInterface {
 	 * @return string
 	 * the url to the api
 	 */
-	public function buildUrl( $sprintf = null ) {
+	protected function buildUrl( $sprintf = null ) {
 
 		$url = sprintf( $this->_endpoint, $sprintf ) . '?';
 
 		foreach( $this->_public_properties as $property ) {
+
+			// don't add the recordID to the query string for a record method call
+			if ( 'recordID' == $property->name ) { continue; }
 
 			if ( isset( $this->{$property->name} ) ) {
 
@@ -76,13 +96,21 @@ abstract class RequestAbstract implements RequestInterface {
 
 					foreach( $this->{$property->name} as $instance ) {
 
-						$url .= $property->name . '=' . urlencode( $instance ) . '&';
+						if ( !empty( $instance) ) {
+
+							$url .= $property->name . '=' . urlencode( $instance ) . '&';
+
+						}
 
 					}
 
 				} else if ( strpos( $this->{$property->name}, '/' ) !== false ) {
 
 					$url .= $property->name . '=' . $this->parseSlash( $property ) . '&';
+
+				} else if ( strpos( $this->{$property->name}, '&#34;' ) !== false ) {
+
+					$url .= $property->name . '=' . urlencode( str_replace( '&#34;', '"', $this->{$property->name} ) ) . '&';
 
 				} else {
 
@@ -96,19 +124,22 @@ abstract class RequestAbstract implements RequestInterface {
 
 		$url = substr( $url, 0, strlen( $url ) - 1 );
 		$this->_url = $url;
+
 		return $this->_url;
 
 	}
 
 
-	public function call() {
+	public function call( $sprintf = null ) {
 
-		return( $this->_HttpRequest->get( $this->buildUrl() ) );
+		$result = array(
+			'response' => $this->_HttpRequest->get( $this->buildUrl( $sprintf ) ),
+			'info' => $this->_HttpRequest->getInfo()
+		);
+
+		return $result;
 
 	}
-
-
-	abstract protected function validate();
 
 
 	/**
@@ -154,7 +185,6 @@ abstract class RequestAbstract implements RequestInterface {
 		$this->reset();
 		$this->_HttpRequest = $HttpRequest;
 		$this->populate( $properties );
-		$this->validate();
 
 	}
 

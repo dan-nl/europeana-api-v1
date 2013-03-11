@@ -7,10 +7,10 @@
  * @license GNU General Public Licence 3.0 http://www.gnu.org/licenses/gpl.html
  */
 namespace Europeana\Api\Response\Json;
-use Europeana\Api\Response\Json;
+use Europeana\Api\Response\JsonAbstract;
 
 
-class Suggestions extends Json {
+class Suggestions extends JsonAbstract {
 
 
 	/**
@@ -21,22 +21,6 @@ class Suggestions extends Json {
 
 
 	/**
-	 * @var string $property_name
-	 */
-	protected function addObject( $property_name = null ) {
-
-		if ( empty( $property_name ) ) { throw new Exception('no property name provided'); }
-
-		foreach( $this->_response_array[ $property_name ] as $item ) {
-
-			$this->{$property_name}[] = new $this->_property_to_class[ $property_name ]( $item );
-
-		}
-
-	}
-
-
-	/**
 	 * @return void
 	 */
 	public function reset() {
@@ -44,7 +28,7 @@ class Suggestions extends Json {
 		parent::reset();
 
 		$this->items = array();
-		$this->_property_to_class['items'] = 'Europeana\Suggestion';
+		$this->_property_to_class['items'] = 'Europeana\Api\Response\Objects\Suggestion';
 
 	}
 

@@ -12,25 +12,13 @@ use Exception,
 		ReflectionProperty;
 
 
-abstract class ResponseAbstract implements ResponseInterface {
+abstract class ResponseAbstract extends ResponseObjectAbstract implements ResponseInterface {
 
 
 	/**
 	 * @var array
 	 */
-	protected $_property_to_class;
-
-
-	/**
-	 * @var array
-	 */
-	protected $_public_properties;
-
-
-	/**
-	 * @var ReflectionClass
-	 */
-	protected $_reflection;
+	protected $_http_status_code_to_error;
 
 
 	/**
@@ -40,34 +28,28 @@ abstract class ResponseAbstract implements ResponseInterface {
 
 
 	/**
+	 * @var array
+	 */
+	protected $_response_info;
+
+
+	/**
 	 * @var string
 	 */
 	protected $_response_raw;
 
 
-	abstract protected function addObject( $property_name = null );
+	protected function obfuscateApiKey() {
 
+		if ( isset( $this->_response_info['url'] ) ) {
 
-	/**
-	 * @return void
-	 */
-	protected function populate() {
+			$url = parse_url( $this->_response_info['url'] );
+			parse_str( $url['query'] );
 
-		if ( empty( $this->_response_array ) ) { return; }
+			if ( !empty( $wskey ) ) {
 
-		foreach( $this->_public_properties as $property ) {
-
-			if ( array_key_exists( $property->name, $this->_response_array ) ) {
-
-				if ( is_array( $this->_response_array[ $property->name ] ) ) {
-
-					$this->addObject( $property->name );
-
-				} else {
-
-					$this->{$property->name} = $this->_response_array[ $property->name ];
-
-				}
+				$this->_response_info['url'] = str_replace( $wskey, 'xxxxxxxxx', $this->_response_info['url'] );
+				$this->_response_raw = str_replace( $wskey, 'xxxxxxxxx', $this->_response_raw );
 
 			}
 
@@ -76,12 +58,54 @@ abstract class ResponseAbstract implements ResponseInterface {
 	}
 
 
+	protected function throwRequestError() {
+
+		$msg = 'api call error : ';
+
+			if ( array_key_exists( $this->_response_info['http_code'], $this->_http_status_code_to_error ) ) {
+
+				$msg .= $this->_http_status_code_to_error[ $this->_response_info['http_code'] ];
+
+			}
+
+			$msg .= '<pre class="prettyprint">' . print_r( $this->_response_info, true ) . '<pre>';
+
+		throw new Exception( $msg );
+
+	}
+
+
+	public function getRequestUrl() {
+
+		$result = null;
+
+			if ( isset( $this->_response_info['url'] ) ) {
+
+				$result = $this->_response_info['url'];
+
+			}
+
+		return $result;
+
+	}
+
+
 	public function reset() {
 
-		$this->_reflection = new ReflectionClass( $this );
-		$this->_property_to_class = array();
-		$this->_public_properties = $this->_reflection->getProperties( ReflectionProperty::IS_PUBLIC );
+		parent::reset();
+
 		$this->_response_array = array();
+		$this->_response_info = array();
+		$this->_response_raw = null;
+
+		$this->_http_status_code_to_error = array(
+			200 => 'The request was executed successfully',
+			400 => 'The request sent by the client was syntactically incorrect',
+			401 => 'Service is called with invalid argument(s)',
+			404 => 'The requested resource is not available',
+			429 => 'The request could be served because the application has reached its usage limit',
+			500 => 'Internal Server Error. Something has gone wrong, please report to us'
+		);
 
 	}
 
@@ -89,22 +113,6 @@ abstract class ResponseAbstract implements ResponseInterface {
 	public function __get( $property ) {
 
 		return $this->$property;
-
-	}
-
-
-	public function __construct( $response_raw ) {
-
-		if ( empty( $response_raw ) ) {
-
-			throw new Exception( 'no raw response provided' );
-
-		}
-
-		$this->reset();
-		$this->_response_raw = $response_raw;
-		$this->_response_array = json_decode( $this->_response_raw, true );
-		$this->populate();
 
 	}
 
