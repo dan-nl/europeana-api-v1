@@ -64,7 +64,7 @@ class Record extends RequestAbstract {
 		$this->recordID = null;
 		$this->wskey = null;
 
-		$this->_endpoint = 'http://preview.europeana.eu/api/v2/record%s.json';
+		$this->_endpoint = 'http://europeana.eu/api/v2/record%s.json';
 
 	}
 

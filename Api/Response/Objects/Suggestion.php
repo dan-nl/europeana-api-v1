@@ -38,6 +38,10 @@ class Suggestion extends ResponseObjectAbstract {
 
 		parent::reset();
 
+		$this->term = null;
+		$this->frequency = 0;
+		$this->field = null;
+
 	}
 
 

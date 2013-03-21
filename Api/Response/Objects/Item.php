@@ -130,6 +130,25 @@ class Item extends ResponseObjectAbstract {
 
 		parent::reset();
 
+		$this->completeness = 0;
+		$this->dataProvider = array();
+		$this->dcCreator = array();
+		$this->edmConceptLabel = null;
+		$this->edmPreview = null;
+		$this->edmTimespanLabel = null;
+		$this->europeanaCollectionName = array();
+		$this->europeanaCompleteness = 0;
+		$this->guid = null;
+		$this->id = null;
+		$this->index = 0;
+		$this->language = array();
+		$this->link = null;
+		$this->provider = null;
+		$this->rights = array();
+		$this->title = array();
+		$this->type = null;
+		$this->year = 0;
+
 	}
 
 

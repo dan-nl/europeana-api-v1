@@ -10,32 +10,20 @@ namespace Europeana\Api\Response\Objects;
 use Europeana\Api\Response\ResponseObjectAbstract;
 
 
-/**
- * a list of alternative terms available in the database. Each suggestion contains
- */
-class SpellcheckSuggestion extends ResponseObjectAbstract {
+class Agent extends ResponseObjectAbstract {
 
 
 	/**
-	 * @var int
-	 * the number of records the term exists in
+	 * @var string
+	 * A collection of definitions for the referring object
 	 */
-	public $count;
-
-
-	/**
-	 * @var array
-	 * the suggested term
-	 */
-	public $label;
+	public $agent;
 
 
 	public function reset() {
 
 		parent::reset();
-
-		$this->count = 0;
-		$this->label = array();
+		$this->agent = null;
 
 	}
 

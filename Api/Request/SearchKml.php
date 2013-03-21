@@ -44,7 +44,7 @@ class SearchKml extends RequestAbstract {
 		$this->query = null;
 		$this->wskey = null;
 
-		$this->_endpoint = 'http://preview.europeana.eu/api/v2/search.kml';
+		$this->_endpoint = 'http://europeana.eu/api/v2/search.kml';
 
 	}
 

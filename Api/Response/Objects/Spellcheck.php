@@ -34,6 +34,9 @@ class Spellcheck extends ResponseObjectAbstract {
 
 		parent::reset();
 
+		$this->correctlySpelled = false;
+		$this->suggestions = array();
+
 	}
 
 

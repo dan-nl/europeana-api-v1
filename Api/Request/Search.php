@@ -124,7 +124,7 @@ class Search extends RequestAbstract {
 		$this->start = 1;
 		$this->wskey = null;
 
-		$this->_endpoint = 'http://preview.europeana.eu/api/v2/search.json';
+		$this->_endpoint = 'http://europeana.eu/api/v2/search.json';
 		$this->_allowed_facets = array(
 			'COMPLETENESS',
 			'COUNTRY',

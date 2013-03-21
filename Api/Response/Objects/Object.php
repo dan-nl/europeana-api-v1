@@ -109,6 +109,14 @@ class Object extends ResponseObjectAbstract {
 		$this->title = array();
 		$this->type = null;
 
+		$this->_property_to_class['agents'] = 'Europeana\Api\Response\Objects\Agent';
+		$this->_property_to_class['aggregations'] = 'Europeana\Api\Response\Objects\Aggregation';
+		$this->_property_to_class['europeanaAggregation'] = 'Europeana\Api\Response\Objects\EuropeanaAggregation';
+		$this->_property_to_class['places'] = 'Europeana\Api\Response\Objects\Place';
+		$this->_property_to_class['providedCHOs'] = 'Europeana\Api\Response\Objects\ProvidedCHO';
+		$this->_property_to_class['proxies'] = 'Europeana\Api\Response\Objects\Proxy';
+		$this->_property_to_class['title'] = 'Europeana\Api\Response\Objects\Title';
+
 	}
 
 
@@ -116,9 +124,6 @@ class Object extends ResponseObjectAbstract {
 
 		$this->reset();
 		$this->populate( $properties );
-
-		//$this->_property_to_class['object'] = 'Europeana\Api\Response\Objects\Agent';
-		//$this->_property_to_class['aggregations'] = 'Europeana\Api\Response\Objects\Aggregation';
 
 	}
 

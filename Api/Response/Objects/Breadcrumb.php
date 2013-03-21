@@ -55,6 +55,12 @@ class Breadcrumb extends ResponseObjectAbstract {
 
 		parent::reset();
 
+		$this->display = null;
+		$this->href = null;
+		$this->last = false;
+		$this->param = null;
+		$this->value = null;
+
 	}
 
 

@@ -58,7 +58,7 @@ class Suggestions extends RequestAbstract {
 		$this->query = null;
 		$this->rows = 10;
 
-		$this->_endpoint = 'http://preview.europeana.eu/api/v2/suggestions.json';
+		$this->_endpoint = 'http://europeana.eu/api/v2/suggestions.json';
 
 	}
 

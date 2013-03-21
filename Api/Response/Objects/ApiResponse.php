@@ -42,6 +42,13 @@ class ApiResponse extends ResponseObjectAbstract {
 
 
 	/**
+	 * @var int
+	 * is number, represents the time taken in milliseconds to serve this request
+	 */
+	public $statsDuration;
+
+
+	/**
 	 * @var boolean
 	 * flag denoting the successful execution of the call
 	 */
@@ -59,7 +66,8 @@ class ApiResponse extends ResponseObjectAbstract {
 		$this->apikey = null;
 		$this->error = null;
 		$this->requestNumber = 0;
-		$this->success = null;
+		$this->statsDuration = 0;
+		$this->success = false;
 
 	}
 

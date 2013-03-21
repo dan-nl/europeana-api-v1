@@ -58,7 +58,7 @@ class OpenSearch extends RequestAbstract {
 		$this->sort = 'relevance';
 		$this->startIndex = 1;
 
-		$this->_endpoint = 'http://preview.europeana.eu/api/v2/opensearch.rss';
+		$this->_endpoint = 'http://europeana.eu/api/v2/opensearch.rss';
 
 	}
 

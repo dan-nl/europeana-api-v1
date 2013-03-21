@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.0.1
- * @created 2013-03-11 17:34 gmt +1
+ * @created 2013-03-21 23:00 gmt +1
  * @author dan entous <contact@gmtplusone.com>
  * @copyright © 2013 dan entous
  * @license GNU General Public Licence 3.0 http://www.gnu.org/licenses/gpl.html
@@ -24,15 +24,82 @@ class Aggregation extends ResponseObjectAbstract {
 
 
 	/**
+	 * @var string
+	 */
+	public $aggregatedCHO;
+
+
+	/**
 	 * @var array
 	 * a collection of edmDataProvider definitions
 	 */
 	public $edmDataProvider;
 
 
+	/**
+	 * @var string
+	 */
+	public $edmIsShownAt;
+
+
+	/**
+	 * @var string
+	 */
+	public $edmIsShownBy;
+
+
+	/**
+	 * @var string
+	 */
+	public $edmObject;
+
+
+	/**
+	 * @var string
+	 * a collection of edmProvider definitions
+	 */
+	public $edmProvider;
+
+
+	/**
+	 * @var string
+	 * a collection of edmRights definitions
+	 */
+	public $edmRights;
+
+
+	/**
+	 * @var string
+	 */
+	public $hasView;
+
+
+	/**
+	 * @var string
+	 * a collection of webResource definitions
+	 */
+	public $webResources;
+
+
 	public function reset() {
 
 		parent::reset();
+
+		$this->about = null;
+		$this->aggregatedCHO = null;
+		$this->edmDataProvider = array();
+		$this->edmIsShownAt = null;
+		$this->edmIsShownBy = null;
+		$this->edmObject = null;
+		$this->edmProvider = array();
+		$this->edmRights = array();
+		$this->hasView = array();
+		$this->webResources = array();
+
+		$this->_property_to_class['edmDataProvider'] = 'Europeana\Api\Response\Objects\EdmDataProvider';
+		$this->_property_to_class['edmProvider'] = 'Europeana\Api\Response\Objects\EdmProvider';
+		$this->_property_to_class['edmRights'] = 'Europeana\Api\Response\Objects\EdmRights';
+		$this->_property_to_class['webResources'] = 'Europeana\Api\Response\Objects\WebResources';
 
 	}
 

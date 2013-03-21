@@ -33,6 +33,10 @@ class Facet extends ResponseObjectAbstract {
 	public function reset() {
 
 		parent::reset();
+
+		$this->fields = array();
+		$this->name = null;
+
 		$this->_property_to_class['fields'] = 'Europeana\Api\Response\Objects\FacetField';
 
 	}

@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.0.1
- * @created 2013-03-02 04:19 gmt +1
+ * @created 2013-03-21 23:00 gmt +1
  * @author dan entous <contact@gmtplusone.com>
  * @copyright © 2013 dan entous
  * @license GNU General Public Licence 3.0 http://www.gnu.org/licenses/gpl.html
@@ -10,32 +10,19 @@ namespace Europeana\Api\Response\Objects;
 use Europeana\Api\Response\ResponseObjectAbstract;
 
 
-/**
- * a list of alternative terms available in the database. Each suggestion contains
- */
-class SpellcheckSuggestion extends ResponseObjectAbstract {
+class ProvidedCHO extends ResponseObjectAbstract {
 
 
 	/**
-	 * @var int
-	 * the number of records the term exists in
+	 * @var string
 	 */
-	public $count;
-
-
-	/**
-	 * @var array
-	 * the suggested term
-	 */
-	public $label;
+	public $about;
 
 
 	public function reset() {
 
 		parent::reset();
-
-		$this->count = 0;
-		$this->label = array();
+		$this->about = null;
 
 	}
 

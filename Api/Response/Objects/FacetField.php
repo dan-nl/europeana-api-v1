@@ -34,6 +34,9 @@ class FacetField extends ResponseObjectAbstract {
 
 		parent::reset();
 
+		$this->count = 0;
+		$this->label = null;
+
 	}
 
 
