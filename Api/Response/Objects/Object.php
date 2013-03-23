@@ -115,7 +115,6 @@ class Object extends ResponseObjectAbstract {
 		$this->_property_to_class['places'] = 'Europeana\Api\Response\Objects\Place';
 		$this->_property_to_class['providedCHOs'] = 'Europeana\Api\Response\Objects\ProvidedCHO';
 		$this->_property_to_class['proxies'] = 'Europeana\Api\Response\Objects\Proxy';
-		$this->_property_to_class['title'] = 'Europeana\Api\Response\Objects\Title';
 
 	}
 
