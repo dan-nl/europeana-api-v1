@@ -134,7 +134,7 @@ abstract class RequestAbstract implements RequestInterface {
 
 		$result = array(
 			'response' => $this->_HttpRequest->get( $this->buildUrl( $sprintf ) ),
-			'info' => $this->_HttpRequest->getInfo()
+			'info' => $this->_HttpRequest->getCurlInfo()
 		);
 
 		return $result;
